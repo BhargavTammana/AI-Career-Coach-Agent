@@ -18,7 +18,7 @@ import { usePathname } from 'next/navigation'
 const items = [
     {
         title: "Workspace",
-        url: "#",
+        url: "/dashboard",
         icon: Layers,
     },
     {
@@ -33,12 +33,12 @@ const items = [
     },
     {
         title: "Billing",
-        url: "#",
+        url: "/billing",
         icon: Wallet,
     },
     {
         title: "Profile",
-        url: "#",
+        url: "/profile",
         icon: UserCircle,
     },
 ]
@@ -75,7 +75,7 @@ export function AppSidebar() {
                 </SidebarGroup>
             </SidebarContent>
             <SidebarFooter>
-                <h2 className='p-2 text-gray-400 text-sm'>Copyright @Tubeguruji</h2>
+                
             </SidebarFooter>
         </Sidebar>
     )

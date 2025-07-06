@@ -8,15 +8,17 @@ import {
     DialogTrigger,
     DialogFooter,
   } from "@/components/ui/dialog"
-import { File, FileIcon, Sparkles } from "lucide-react"
+import { File, FileIcon, Loader2Icon, Sparkles } from "lucide-react"
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from "react"
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 function ResumeUploadDialog({openResumeUpload, setOpenResumeUpload}:{openResumeUpload:boolean, setOpenResumeUpload:any}) {
     
     const [file, setFile] = useState<any>()
-
+    const [loading,setLoading] = useState<boolean>(false)
+    const router = useRouter()
     const onFileChange = (e:any)=>{
         const file = e.target.files?.[0]
         if(file){
@@ -26,14 +28,20 @@ function ResumeUploadDialog({openResumeUpload, setOpenResumeUpload}:{openResumeU
     }
 
     const onUploadAndAnalyze = async()=>{
+        setLoading(true)
         const recordId = uuidv4()
         const formData = new FormData()
         formData.append('recordId',recordId)
         formData.append('resumeFile',file)
+        
+
         // send formdata to backend server
         const result = await axios.post('/api/ai-resume-agent',formData)
         console.log(result.data)
+        setLoading(false)
 
+        router.push('/ai-tools/ai-resume-analyzer/'+recordId)
+        setOpenResumeUpload(false)
     }
   return (
     <div>
@@ -55,7 +63,7 @@ function ResumeUploadDialog({openResumeUpload, setOpenResumeUpload}:{openResumeU
             </DialogHeader>
             <DialogFooter>
                 <Button variant={'outline'} onClick={()=>{setOpenResumeUpload(false); setFile('')}}> Cancel</Button>
-                <Button disabled = {!file} onClick={onUploadAndAnalyze}> <Sparkles/> Upload and Analyze</Button>
+                <Button disabled = {!file || loading} onClick={onUploadAndAnalyze}>{loading?<Loader2Icon className="animate-spin"/> : <Sparkles/>} Upload and Analyze</Button>
             </DialogFooter>
             </DialogContent>
         </Dialog>

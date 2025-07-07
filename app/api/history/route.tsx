@@ -43,8 +43,13 @@ export async function GET(req:any){
             return NextResponse.json(result[0])
         }
         else{
-            const result = await db.select().from(HistoryTable).where(eq(HistoryTable.userEmail,user?.primaryEmailAddress?.emailAddress)).orderBy(desc(HistoryTable.id))
-            return NextResponse.json(result)
+            if (!user?.primaryEmailAddress?.emailAddress) {
+                return NextResponse.json({ error: "No user email" }, { status: 401 });
+            }
+            const result = await db.select().from(HistoryTable)
+                .where(eq(HistoryTable.userEmail, user.primaryEmailAddress.emailAddress))
+                .orderBy(desc(HistoryTable.id));
+            return NextResponse.json(result);
         }
         return NextResponse.json({})
     }catch(e){

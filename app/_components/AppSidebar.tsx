@@ -14,6 +14,7 @@ import {
 import { Calendar, Home, Inbox, Layers, Search, Settings, UserCircle, Wallet } from "lucide-react"
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 const items = [
     {
@@ -49,8 +50,10 @@ export function AppSidebar() {
         <Sidebar>
             <SidebarHeader>
                 <div className='p-4'>
-                    <Image src={'/logo.png'} alt='logo' width={100} height={70}
-                        className='w-full' />
+                    <Link href='/'>
+                        <Image src={'/logo.png'} alt='logo' width={100} height={70}
+                            className='w-full' />
+                    </Link>
                     <h2 className='text-sm text-gray-400 text-center mt-5'>Build Awesome Skills</h2>
                 </div>  
             </SidebarHeader>

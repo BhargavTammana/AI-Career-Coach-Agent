@@ -37,7 +37,7 @@ function PreviousHistory() {
           loading && 
           <div>
             {[1,2,3,4,5].map((item,index)=>(
-              <div>
+              <div key={index}>
                 <Skeleton className="h-[50px] w-full rounded-md mt-4" />
               </div>
             ))}

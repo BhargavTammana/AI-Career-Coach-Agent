@@ -76,7 +76,7 @@ export default function Home() {
 
 
       <div className="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 items-center gap-2">
+        <div className="grid sm:grid-cols-1 lg:grid-cols-3 items-center gap-2">
 
           <a className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800" href="#">
             <div className="flex justify-center items-center size-12 bg-blue-600 rounded-xl">
@@ -111,7 +111,7 @@ export default function Home() {
             </div>
           </a>
 
-          <a className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800" href="#">
+          {/* <a className="group flex flex-col justify-center hover:bg-gray-50 rounded-xl p-4 md:p-7 dark:hover:bg-neutral-800" href="#">
             <div className="flex justify-center items-center size-12 bg-blue-600 rounded-xl">
               <svg className="flex-shrink-0 size-6 text-white" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="10" height="14" x="3" y="8" rx="2" /><path d="M5 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2h-2.4" /><path d="M8 18h.01" /></svg>
             </div>
@@ -120,7 +120,7 @@ export default function Home() {
               <p className="mt-1 text-gray-600 dark:text-neutral-400">Instantly create compelling and customized cover letters with AI</p>
               
             </div>
-          </a>
+          </a> */}
 
         </div>
       </div>

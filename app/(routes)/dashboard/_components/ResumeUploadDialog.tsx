@@ -50,7 +50,7 @@ function ResumeUploadDialog({openResumeUpload, setOpenResumeUpload}:{openResumeU
             <DialogContent>
             <DialogHeader>
                 <DialogTitle>Upload Your Resume</DialogTitle>
-                <DialogDescription>
+                <DialogDescription asChild>
                     <div className="mt-2">
                         <input type="file" className="hidden" id="resume-upload" accept=".pdf" onChange={onFileChange}/>
                         <label htmlFor="resume-upload" className="cursor-pointer flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-lg p-10 hover:bg-slate-100">

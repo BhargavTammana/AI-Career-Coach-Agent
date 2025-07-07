@@ -28,7 +28,7 @@ const items = [
     },
     {
         title: "My History",
-        url: "#",
+        url: "/my-history",
         icon: Calendar,
     },
     {

@@ -243,3 +243,84 @@ export const AiResumeAgent = inngest.createFunction(
     return parseJson
   }
 )
+
+export const AiRoadmapGeneratorAgent = createAgent({
+  name: 'AiRoadmapGeneratorAgent',
+  description: 'Generate Details Tree Like Flow Roadmap',
+  system:`Generate a React flow tree-structured learning roadmap for user input position/skills in the following format:
+Vertical tree structure with meaningful x/y positions to form a flow.
+
+- Structure should be similar to roadmap.sh layout.
+- Steps should be ordered from fundamentals to advanced.
+- Include branching for different specializations (if applicable).
+- Each node must have a title, short description, and learning resource link.
+- Use unique IDs for all nodes and edges.
+- Make it more spacious with clear visual gaps between nodes (minimum 300px horizontal and 250px vertical spacing).
+- Ensure no overlapping nodes and smooth edge paths for clarity.
+
+Response in JSON format:
+{
+  roadmapTitle: '',
+  description: <3-5 Lines>,
+  duration: '',
+  initialNodes: [
+    {
+      id: '1',
+      type: 'turbo',
+      position: { x: 0, y: 0 },
+      data: {
+        title: 'Step Title',
+        description: 'Short two-line explanation of what the step covers.',
+        link: 'Helpful link for learning this step'
+      }
+    },
+    ...
+  ],
+  initialEdges: [
+    {
+      id: 'e1-2',
+      source: '1',
+      target: '2'
+    },
+    ...
+  ]
+};
+
+`,
+  model:gemini({
+    model:"gemini-2.5-flash-preview-04-17",
+    apiKey:process.env.GEMINI_API_KEY
+  })
+
+})
+
+export const AiRoadmapAgent = inngest.createFunction(
+  {id:'AiRoadmapAgent'},
+  {event:'AiRoadmapAgent'},
+  async({event,step})=>{
+    const {roadmapId,userInput,userEmail}= await event.data
+
+    const roadmapResult = await AiRoadmapGeneratorAgent.run("UserInput:"+userInput)
+    //@ts-ignore
+    const rawContent = roadmapResult.output[0]?.content
+    const rawContentJson = rawContent.replace('```json','').replace('```','')
+    const parseJson = JSON.parse(rawContentJson)
+    // return parseJson
+
+    //save to db
+    const saveToDb = await step.run('SavetoDb', async()=>{
+      const result = await db.insert(HistoryTable).values({
+        recordId:roadmapId,
+        content : parseJson,
+        aiAgentType : '/ai-tools/ai-roadmap-agent',
+        createdAt : (new Date()).toString(),
+        userEmail,
+        metaData : userInput
+      })
+      console.log(result)
+    })
+    
+    return parseJson
+
+  }
+)

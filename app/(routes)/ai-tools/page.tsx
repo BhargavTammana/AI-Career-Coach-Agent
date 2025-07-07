@@ -3,7 +3,9 @@ import AiToolsList from '../dashboard/_components/AiToolsList'
 
 const AiTools = () => {
   return (
-    <div>
+    <div >
+        
+        <h2 className='font-bold text-2xl'>AI Career Coach Agents</h2>
         <AiToolsList/>
     </div>
   )

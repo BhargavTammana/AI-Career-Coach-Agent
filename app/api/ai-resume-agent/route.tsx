@@ -40,8 +40,7 @@ export async function POST(req:NextRequest ){
     return NextResponse.json(runStatus.data[0].output)
 } 
     
-
-export async function getRuns(runId: string) {
+ async function getRuns(runId: string) {
     const host = process.env.INNGEST_SERVER_HOST;
     if (!host) throw new Error("INNGEST_SERVER_HOST is not defined");
 
